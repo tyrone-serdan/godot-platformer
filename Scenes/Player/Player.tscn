@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/Player/PlayerAnim.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player/Player.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://GFX/Background/bg_layer4.png" type="Texture" id=5]
 [ext_resource path="res://GFX/Background/bg_layer2.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Player/PlayerAudio.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/Misc/GUI/GUI.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 60.3647
@@ -91,6 +92,8 @@ __meta__ = {
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 7 )
+
+[node name="GUI" parent="." instance=ExtResource( 8 )]
 
 [connection signal="animate" from="." to="PlayerAnim" method="_on_Player_animate"]
 [connection signal="playSound" from="." to="AudioStreamPlayer" method="playSound"]

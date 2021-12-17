@@ -1,11 +1,13 @@
 extends Node2D
 
-onready var player = $Player
+var player
 
 var pHealth
 var pCoordY
 var wLimit
 
+func _ready():
+	player = get_node("Player")
 
 func _process(_float):
 	pHealth = player.HEALTH
