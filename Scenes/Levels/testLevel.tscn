@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Levels/Tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://Scenes/Hazards/3SpikeTop.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Misc/LevelAudio.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Misc/LevelAudio/LevelAudio.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Items/JumpPad/JumpPad.tscn" type="PackedScene" id=5]
 
 [node name="Level1" type="Node2D"]
 
@@ -28,3 +29,6 @@ position = Vector2( 1334.32, -27.5103 )
 position = Vector2( 1606.32, 358.49 )
 
 [node name="LevelAudio" parent="." instance=ExtResource( 4 )]
+
+[node name="JumpPad" parent="." instance=ExtResource( 5 )]
+position = Vector2( 2741.49, 1058.65 )

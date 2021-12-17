@@ -17,6 +17,7 @@ config/icon="res://icon.png"
 [global]
 
 "layer name"=false
+layer_names=false
 
 [input]
 
@@ -42,6 +43,7 @@ jump={
 2d_physics/layer_1="player"
 2d_physics/layer_2="terrain"
 2d_physics/layer_3="hazards"
+2d_physics/layer_4="items"
 
 [physics]
 

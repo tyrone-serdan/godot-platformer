@@ -1,5 +1,6 @@
 {
     "speed": -1000,
     "jump": 1750,
-    "health": 3
+    "health": 3,
+    "boost": 2500
 }

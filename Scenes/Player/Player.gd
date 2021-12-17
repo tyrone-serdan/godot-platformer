@@ -4,14 +4,13 @@ extends KinematicBody2D
 
 var playerVec = Vector2.ZERO
 
-# const DATA = [{"SPEED": -1000, "JUMP": 1750}, {"UP": Vector2(0,-1), "GRAVITY": 80}]
-
 var GRAVITY # = DATA[1]["GRAVITY"]
 var UP # = DATA[1]["UP"]
 var SPEED # = DATA[0]["SPEED"]
 var JUMP # = DATA[0]["JUMP"]
 var WORLD_LIMIT
 var HEALTH
+var BOOST
 
 var easyModeVals = [15, 700]
 var amountJumped = 0
@@ -31,6 +30,7 @@ func _ready():
 	JUMP = playerVars.jump
 	SPEED = playerVars.speed
 	HEALTH = playerVars.health
+	BOOST = playerVars.boost
 
 	UP = Vector2(globalVars.upX, globalVars.upY)
 	GRAVITY = globalVars.gravity
@@ -87,12 +87,15 @@ func hurtPlayer():
 	position.y -= 1
 	yield(get_tree(), "idle_frame")
 
-	playerVec.y -= JUMP * 1
+	playerVec.y -= JUMP
 	amountJumped += 1
 	recentlyHurt = true
 
 	yield(get_tree().create_timer(0.2), "timeout")
 	recentlyHurt = false
+
+func boost():
+	playerVec.y -= BOOST
 
 
 
