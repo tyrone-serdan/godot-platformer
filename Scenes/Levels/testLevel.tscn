@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Levels/Tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://Scenes/Hazards/3SpikeTop.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Misc/LevelAudio.tscn" type="PackedScene" id=4]
 
 [node name="Level1" type="Node2D"]
 
@@ -25,3 +26,5 @@ position = Vector2( 1334.32, -27.5103 )
 
 [node name="SpikesTop3" parent="Spikes" instance=ExtResource( 3 )]
 position = Vector2( 1606.32, 358.49 )
+
+[node name="LevelAudio" parent="." instance=ExtResource( 4 )]

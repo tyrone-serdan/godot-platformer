@@ -17,12 +17,16 @@ var easyModeVals = [15, 700]
 var amountJumped = 0
 var recentlyHurt = false
 
+var globalVars 
+var playerVars
+
 signal animate
+signal playSound
 
 func _ready():
 	# Id put this in a func but im lazy
-	var globalVars = getFromJSON("res://Scenes/global.json")
-	var playerVars = getFromJSON("res://Scenes/Player/Player.json")
+	globalVars = getFromJSON("res://Scenes/global.json")
+	playerVars = getFromJSON("res://Scenes/Player/Player.json")
 
 	JUMP = playerVars.jump
 	SPEED = playerVars.speed
@@ -47,15 +51,6 @@ func _physics_process(_delta):
 	playerMovement()
 	animate()
 	playerVec = move_and_slide(playerVec, UP)
-	checkCollisions()
-
-func checkCollisions():
-	for i in get_slide_count():
-		var collName = get_slide_collision(i).collider.name
-		if collName == "TileMap":
-			pass
-		else:
-			print(str(collName))
 
 
 func playerMovement():
@@ -67,26 +62,36 @@ func playerMovement():
 		amountJumped = 0
 
 	if Input.is_action_just_pressed("jump") and amountJumped < 2 and recentlyHurt == false:
-		print('jumping! ' + str(amountJumped))
-		playerVec.y -= JUMP
+		emit_signal("playSound", false)
 		amountJumped += 1
+		position.y -= 5
+		yield(get_tree(), "idle_frame")
+
+		playerVec.y -= JUMP
 
 	playerVec.x = Input.get_action_strength("move_left") * SPEED - Input.get_action_strength("move_right") * SPEED
 
 func checkGameOver():
 	if position.y > WORLD_LIMIT or HEALTH == 0:
 		var _successChange = get_tree().change_scene("res://Scenes/Misc/GameOver.tscn")
+	
 
 func hurtPlayer():
+	
+	HEALTH -= 1
+	if HEALTH == 0: return
+
+	emit_signal("playSound", true)
+
 	# stops that weird gravity thingy pulling our jumps down
 	position.y -= 1
 	yield(get_tree(), "idle_frame")
 
-
 	playerVec.y -= JUMP * 1
+	amountJumped += 1
 	recentlyHurt = true
-	HEALTH -= 1
-	yield(get_tree().create_timer(1.0), "timeout")
+
+	yield(get_tree().create_timer(0.2), "timeout")
 	recentlyHurt = false
 
 
