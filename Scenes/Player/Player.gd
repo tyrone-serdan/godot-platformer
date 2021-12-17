@@ -1,53 +1,24 @@
 extends KinematicBody2D
 
-#onready var anim = $PlayerAnim
-
 var playerVec = Vector2.ZERO
 
-var GRAVITY # = DATA[1]["GRAVITY"]
-var UP # = DATA[1]["UP"]
-var SPEED # = DATA[0]["SPEED"]
-var JUMP # = DATA[0]["JUMP"]
-var WORLD_LIMIT
-var HEALTH
-var BOOST
+var GRAVITY = 80
+var UP = Vector2(0,-1)
+
+var SPEED = -1000
+var JUMP = 1750
+var WORLD_LIMIT = 4000
+var HEALTH = 3
+var BOOST = 2500
 
 var easyModeVals = [15, 700]
 var amountJumped = 0
 var recentlyHurt = false
 
-var globalVars 
-var playerVars
-
 signal animate
 signal playSound
 
-func _ready():
-	# Id put this in a func but im lazy
-	globalVars = getFromJSON("res://Scenes/global.json")
-	playerVars = getFromJSON("res://Scenes/Player/Player.json")
-
-	JUMP = playerVars.jump
-	SPEED = playerVars.speed
-	HEALTH = playerVars.health
-	BOOST = playerVars.boost
-
-	UP = Vector2(globalVars.upX, globalVars.upY)
-	GRAVITY = globalVars.gravity
-	WORLD_LIMIT = globalVars.world_limit
-
-func getFromJSON(jsonFile):
-	var file = File.new()
-	file.open(jsonFile, file.READ)
-
-	var text = file.get_as_text()
-	var data = parse_json(text)
-	file.close()
-	return data
-
 func _physics_process(_delta):
-
-	checkGameOver()
 	playerMovement()
 	animate()
 	playerVec = move_and_slide(playerVec, UP)
@@ -70,10 +41,6 @@ func playerMovement():
 		playerVec.y -= JUMP
 
 	playerVec.x = Input.get_action_strength("move_left") * SPEED - Input.get_action_strength("move_right") * SPEED
-
-func checkGameOver():
-	if position.y > WORLD_LIMIT or HEALTH == 0:
-		var _successChange = get_tree().change_scene("res://Scenes/Misc/GameOver.tscn")
 	
 
 func hurtPlayer():
