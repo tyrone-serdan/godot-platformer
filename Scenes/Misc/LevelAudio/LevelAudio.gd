@@ -15,4 +15,4 @@ func pickSong(num):
 	stream = musicOptions[num]
 	autoplay = true
 	volume_db = -13
-	# play()
+	play()

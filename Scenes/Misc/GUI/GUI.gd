@@ -8,5 +8,5 @@ signal updateText
 
 func _process(_delta):
 	pHealth = player.get("HEALTH")
-	pCoins = 0
+	pCoins = player.get("coinsCollected")
 	emit_signal("updateText", pHealth, pCoins)

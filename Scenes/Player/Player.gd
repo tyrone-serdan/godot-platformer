@@ -12,8 +12,9 @@ var HEALTH = 3
 var BOOST = 2500
 
 var easyModeVals = [15, 700]
-var amountJumped = 0
 var recentlyHurt = false
+var amountJumped = 0
+var coinsCollected = 0
 
 signal animate
 signal playSound
@@ -64,7 +65,8 @@ func hurtPlayer():
 func boost():
 	playerVec.y -= BOOST
 
-
+func coinCollect():
+	coinsCollected += 1
 
 func animate():
 	emit_signal("animate", playerVec, is_on_floor())
